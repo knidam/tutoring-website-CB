@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GenomeX - Competitive Excellence</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         * {
             margin: 0;
@@ -377,12 +378,21 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .logo img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -1121,7 +1131,10 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">GenomeX</div>
+            <div class="logo">
+                <img src="logo.png" alt="GenomeX Logo">
+                GenomeX
+            </div>
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
@@ -1216,7 +1229,10 @@
     <div id="coursePage" class="course-page" style="display: none;">
         <div class="course-nav">
             <div class="nav-container">
-                <div class="logo">GenomeX Tutoring</div>
+                <div class="logo">
+                    <img src="logo.png" alt="GenomeX Logo">
+                    GenomeX Tutoring
+                </div>
                 <div class="course-nav-right">
                     <button onclick="showHomePage()" class="back-btn">← Back to Home</button>
                     <button id="themeToggleCourse" class="theme-toggle" onclick="toggleTheme()">🌙</button>
@@ -1508,8 +1524,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
