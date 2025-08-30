@@ -3,1615 +3,480 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenomeX - Competitive Excellence</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <title>GenomeX | Win Competitions. Publish Research. Excel in School.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: '#f97316',
+                        lightaccent: '#fb923c',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%);
         }
-
-        /* Course Page Styles */
-        .course-page {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.2);
+        }
+        .nav-link:hover::after {
             width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 2000;
-            overflow-y: auto;
         }
-
-        .course-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .course-nav .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .course-nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .back-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .course-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            color: white;
-        }
-
-        .course-hero-content h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .course-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .course-detail-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .course-detail-card::before {
+        .nav-link::after {
             content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(45deg, transparent, transparent);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: xor;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .course-detail-card:hover::before {
-            opacity: 1;
-            background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), 
-                rgba(102, 126, 234, 0.8) 0%, 
-                rgba(102, 126, 234, 0.4) 30%, 
-                rgba(102, 126, 234, 0.1) 60%, 
-                transparent 100%);
-        }
-
-        .course-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .course-header .course-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .course-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #333;
-            margin: 0;
-        }
-
-        .course-badge.price {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-left: auto;
-        }
-
-        .schedule-box {
-            background: linear-gradient(145deg, #f8f9ff 0%, #fff 100%);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-        }
-
-        .schedule-box h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .schedule-box p {
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
-
-        .course-description {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        .course-features {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .course-features li {
-            padding: 0.3rem 0;
-            color: #555;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .course-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .coming-soon {
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        .soon-badge {
-            background: linear-gradient(135deg, #8000ff 0%, #19547b 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            font-size: 1.5em;
-            font-weight: 900;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .sold-out-badge {
-            background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: inline-block;
-            margin: 1rem 0;
-            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
-            animation: pulse 2s infinite;
-            text-align: center;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .sold-out-overlay {
-            position: relative;
-            opacity: 0.7;
-        }
-
-        .sold-out-overlay::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 71, 87, 0.1);
-            border-radius: 20px;
-            pointer-events: none;
-        }
-
-        .important-info {
-            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.1);
-        }
-
-        .important-info h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .info-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-
-        .info-item h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .info-item p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .signup-section {
-            text-align: center;
-            padding: 3rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            color: white;
-            margin-top: 2rem;
-        }
-
-        .signup-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .signup-section p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .signup-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .signup-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        /* Responsive for Course Page */
-        @media (max-width: 768px) {
-            .course-hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .course-content {
-                padding: 2rem 1rem;
-            }
-
-            .course-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 0.5rem;
-            }
-
-            .course-badge.price {
-                margin-left: 0;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .theme-toggle {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-            transform: translateY(-2px);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
+            display: block;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.15;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 255, 200, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 120, 200, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.4) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
-        }
-
-        .hero-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .floating-element {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-        }
-
-        .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            animation-delay: -5s;
-            animation-duration: 20s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            top: 60%;
-            left: 80%;
-            animation-delay: -10s;
-            animation-duration: 25s;
-        }
-
-        .floating-element:nth-child(3) {
-            width: 40px;
-            height: 40px;
-            top: 80%;
-            left: 20%;
-            animation-delay: -15s;
-            animation-duration: 18s;
-        }
-
-        .floating-element:nth-child(4) {
-            width: 100px;
-            height: 100px;
-            top: 30%;
-            left: 70%;
-            animation-delay: -8s;
-            animation-duration: 22s;
-        }
-
-        .floating-element:nth-child(5) {
-            width: 50px;
-            height: 50px;
-            top: 10%;
-            left: 50%;
-            animation-delay: -12s;
-            animation-duration: 16s;
-        }
-
-        .dna-helix {
-            position: absolute;
-            width: 200px;
-            height: 400px;
-            top: 50%;
-            left: 15%;
-            transform: translateY(-50%);
-            opacity: 0.08;
-        }
-
-        .dna-helix::before,
-        .dna-helix::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 100%;
-            background: white;
-            border-radius: 2px;
-            animation: dnaRotate 10s linear infinite;
-        }
-
-        .dna-helix::before {
-            left: 50px;
-            transform-origin: 50% 50%;
-        }
-
-        .dna-helix::after {
-            right: 50px;
-            transform-origin: 50% 50%;
-            animation-delay: -5s;
-        }
-
-        .dna-helix-2 {
-            position: absolute;
-            width: 150px;
-            height: 300px;
-            top: 20%;
-            right: 10%;
-            transform: rotate(45deg);
-            opacity: 0.06;
-        }
-
-        .dna-helix-2::before,
-        .dna-helix-2::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 100%;
-            background: white;
-            border-radius: 2px;
-            animation: dnaRotate 8s linear infinite reverse;
-        }
-
-        .dna-helix-2::before {
-            left: 40px;
-        }
-
-        .dna-helix-2::after {
-            right: 40px;
-            animation-delay: -4s;
-        }
-
-        .molecular-structure {
-            position: absolute;
-            top: 15%;
-            left: 75%;
-            width: 120px;
-            height: 120px;
-            opacity: 0.1;
-            animation: moleculeRotate 25s linear infinite;
-        }
-
-        .molecular-structure::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 
-                40px 0 0 rgba(255, 255, 255, 0.8),
-                20px 35px 0 rgba(255, 255, 255, 0.6),
-                -20px 35px 0 rgba(255, 255, 255, 0.7),
-                -40px 0 0 rgba(255, 255, 255, 0.5),
-                -20px -35px 0 rgba(255, 255, 255, 0.6),
-                20px -35px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        .wave-pattern {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="rgba(255,255,255,0.1)"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="rgba(255,255,255,0.05)"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="rgba(255,255,255,0.03)"/></svg>') repeat-x;
-            background-size: 1200px 120px;
-            animation: waveMove 15s ease-in-out infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            33% { transform: rotate(120deg) scale(1.1); }
-            66% { transform: rotate(240deg) scale(0.9); }
-        }
-
-        @keyframes float {
-            0% { 
-                transform: translateY(0px) translateX(0px) rotate(0deg);
-                opacity: 0.7;
-            }
-            33% { 
-                transform: translateY(-30px) translateX(30px) rotate(120deg);
-                opacity: 0.4;
-            }
-            66% { 
-                transform: translateY(-10px) translateX(-20px) rotate(240deg);
-                opacity: 0.8;
-            }
-            100% { 
-                transform: translateY(0px) translateX(0px) rotate(360deg);
-                opacity: 0.7;
-            }
-        }
-
-        @keyframes dnaRotate {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        @keyframes moleculeRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes waveMove {
-            0% { background-position-x: 0px; }
-            100% { background-position-x: 1200px; }
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-            position: relative;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .cta-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        /* Sections */
-        .section {
-            padding: 6rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background: linear-gradient(145deg, #f8f9ff 0%, #fff 100%);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(45deg, transparent, transparent);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: xor;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-            background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), 
-                rgba(102, 126, 234, 0.8) 0%, 
-                rgba(102, 126, 234, 0.4) 30%, 
-                rgba(102, 126, 234, 0.1) 60%, 
-                transparent 100%);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        .service-features {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .service-features li {
-            padding: 0.5rem 0;
-            color: #555;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .service-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        /* Credentials Section */
-        .credentials {
-            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
-            margin: 4rem 0;
-            border-radius: 30px;
-            padding: 4rem 2rem;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.1);
-        }
-
-        .credentials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .credential-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .credential-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-
-        .credential-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .credential-item h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .credential-item p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Contact Section */
-        .contact-form {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e0e7ff;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #f8f9ff;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .nav-right {
-                gap: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            .course-nav-right {
-                gap: 0.5rem;
-            }
-        }
-
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-        }
-
-        body.dark-mode nav {
-            background: rgba(26, 26, 26, 0.95);
-        }
-
-        body.dark-mode .nav-links a {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .nav-links a:hover {
-            color: #667eea;
-        }
-
-        body.dark-mode .section {
-            background-color: #1a1a1a;
-        }
-
-        body.dark-mode .section h2 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        body.dark-mode .service-card {
-            background: linear-gradient(145deg, #2d2d2d 0%, #333 100%);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        body.dark-mode .service-card::before {
-            mask: linear-gradient(#2d2d2d 0 0) content-box, linear-gradient(#2d2d2d 0 0);
-            mask-composite: xor;
-            -webkit-mask: linear-gradient(#2d2d2d 0 0) content-box, linear-gradient(#2d2d2d 0 0);
-            -webkit-mask-composite: xor;
-        }
-
-        body.dark-mode .service-card h3 {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .service-card p {
-            color: #b0b0b0;
-        }
-
-        body.dark-mode .service-features li {
-            color: #c0c0c0;
-        }
-
-        body.dark-mode .credentials {
-            background: linear-gradient(135deg, #2d2d2d 0%, #333 100%);
-        }
-
-        body.dark-mode .credentials p {
-            color: #b0b0b0;
-        }
-
-        body.dark-mode footer {
-            background: #0d0d0d;
-        }
-
-        body.dark-mode .course-page {
-            background: #1a1a1a;
-        }
-
-        body.dark-mode .course-nav {
-            background: rgba(26, 26, 26, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        body.dark-mode .course-detail-card {
-            background: linear-gradient(145deg, #2d2d2d 0%, #333 100%);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        body.dark-mode .course-detail-card::before {
-            mask: linear-gradient(#2d2d2d 0 0) content-box, linear-gradient(#2d2d2d 0 0);
-            mask-composite: xor;
-            -webkit-mask: linear-gradient(#2d2d2d 0 0) content-box, linear-gradient(#2d2d2d 0 0);
-            -webkit-mask-composite: xor;
-        }
-
-        body.dark-mode .course-header h2 {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .schedule-box {
-            background: linear-gradient(145deg, #3d3d3d 0%, #2d2d2d 100%);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        body.dark-mode .schedule-box h4 {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .schedule-box p {
-            color: #c0c0c0;
-        }
-
-        body.dark-mode .course-description {
-            color: #b0b0b0;
-        }
-
-        body.dark-mode .course-features li {
-            color: #c0c0c0;
-        }
-
-        body.dark-mode .important-info {
-            background: linear-gradient(135deg, #2d2d2d 0%, #333 100%);
-        }
-
-        body.dark-mode .important-info h2 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        body.dark-mode .info-item {
-            background: #2d2d2d;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        body.dark-mode .info-item h4 {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .info-item p {
-            color: #b0b0b0;
+            background: #f97316;
+            transition: width .3s;
         }
     </style>
 </head>
-<body>
+<body class="bg-primary text-gray-200 font-sans">
     <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <img src="logo.png" alt="GenomeX Logo">
-                GenomeX
+    <nav class="bg-primary border-b border-secondary sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-accent font-bold text-2xl">GenomeX</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            <a href="#courses" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+                            <a href="#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium">About</a>
+                            <a href="#contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <a href="#contact" class="bg-accent hover:bg-lightaccent text-primary px-4 py-2 rounded-md text-sm font-medium transition duration-300">Get Started</a>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-secondary focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#credentials">Credentials</a></li>
-                    <li><a href="#" onclick="showCoursePage()">Course Details</a></li>
-                </ul>
-                <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#courses" class="block px-3 py-2 rounded-md text-base font-medium">Courses</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                <a href="#contact" class="block bg-accent text-primary px-3 py-2 rounded-md text-base font-medium mt-2">Get Started</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-animation">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="dna-helix"></div>
-            <div class="dna-helix-2"></div>
-            <div class="molecular-structure"></div>
-            <div class="wave-pattern"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Win Competitions. Publish Research. Excel in School. </h1>
-            <p>Elite tutoring for biology competitions and cutting-edge research mentorship with an acclaimed AI researcher</p>
-            <a href="#" onclick="showCoursePage()" class="cta-button">View Course Details</a>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section">
-        <h2>Premium Tutoring Services</h2>
-        <div class="services-grid">
-            <div class="service-card fade-in">
-                <div class="service-icon">🏆</div>
-                <h3>Biology Competition Prep</h3>
-                <p>Comprehensive preparation for biology competitions including USABO with proven strategies and advanced problem-solving techniques.</p>
-                <ul class="service-features">
-                    <li>Personalized study plans</li>
-                    <li>Advanced practice problems</li>
-                    <li>Mock examinations</li>
-                    <li>Competition strategy development</li>
-                    <li>Performance analytics</li>
-                </ul>
-                <span class="sold-out-badge">COURSE SOLD OUT</span>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">🔬</div>
-                <h3>Research Mentorship</h3>
-                <p>Hands-on guidance in biological research methodology, from hypothesis formation to publication-ready manuscripts.</p>
-                <ul class="service-features">
-                    <li>Research project development</li>
-                    <li>Scientific methodology training</li>
-                    <li>Data analysis techniques</li>
-                    <li>Academic writing support</li>
-                    <li>Conference presentation prep</li>
-                </ul>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">📚</div>
-                <h3>School Subject Tutoring (one-on-one)</h3>
-                <p>Private tutoring in the subject of your choice with personalized attention to help you excel academically.</p>
-                <ul class="service-features">
-                    <li>Any level of English</li>
-                    <li>Honors Chemistry</li>
-                    <li>Any level of Biology</li>
-                    <li>Any Computer Science</li>
-                    <li>Customized learning plans</li>
-                </ul>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">∫</div>
-                <h3>Math (One-on-one)</h3>
-                <p>Scheduled tutoring with mathematician Sachit Hegde as the tutor.</p>
-                <ul class="service-features">
-                    <li>Tutoring up to Calculus</li>
-                    <li>Engaging teaching</li>
-                    <li>Develops strong understanding of math</li>
-                    <li>Basic AMC training</li>
-                </ul>
+    <section id="home" class="hero-gradient py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                        <span class="text-white">GenomeX</span> 
+                        <span class="text-accent">Tutoring</span>
+                    </h1>
+                    <h2 class="text-xl md:text-2xl mb-6 text-gray-300">
+                        Win Competition. Publish Research. Excel in School.
+                    </h2>
+                    <p class="text-gray-300 mb-8">
+                        Elite tutoring for biology competitions and cutting-edge research mentorship 
+                        with an acclaimed AI researcher and experienced mathematics tutor.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#courses" class="bg-accent hover:bg-lightaccent text-primary px-6 py-3 rounded-md font-medium transition duration-300">Our Courses</a>
+                        <a href="#contact" class="border border-accent text-accent hover:bg-secondary px-6 py-3 rounded-md font-medium transition duration-300">Contact Us</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <div class="absolute inset-0 bg-accent opacity-20 rounded-full blur-xl"></div>
+                        <div class="relative bg-secondary rounded-2xl p-6 h-full flex items-center justify-center border border-gray-700 shadow-lg">
+                            <div class="text-center">
+                                <i class="fas fa-graduation-cap text-5xl text-accent mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-2">Personalized Learning</h3>
+                                <p class="text-gray-300 text-sm">Tailored programs for every student's needs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Credentials Section -->
-    <section id="credentials" class="section">
-        <div class="credentials">
-            <h2>World-Class Expertise</h2>
-            <p style="text-align: center; font-size: 1.2rem; color: #666; line-height: 1.8; max-width: 800px; margin: 0 auto;">
-                Taught by a qualified and highly academic tutor who understands the needs of students. Has won numerous academic achievements and is actively engaged in research. Extensive knowledge of USABO and competitive biology. Backed by years of research and tutoring experience. Guided by advanced training in biology and AI research. NEW tutor, Sachit Hegde, teaches Mathematics in an engaging way, and is an experienced and qualified mathematician.
-            </p>
+    <!-- Courses Section -->
+    <section id="courses" class="py-20 bg-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Our <span class="text-accent">Courses</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-300">
+                    Comprehensive programs designed to help students excel in academics, competitions, and research.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Competitive Biology -->
+                <div class="course-card bg-primary rounded-xl overflow-hidden shadow-lg border border-gray-800 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-dna text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Competitive Biology</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2"><strong>Schedule:</strong> Sundays 4:30 PM - 5:30 PM</p>
+                            <p class="text-sm text-gray-400 mb-2"><strong>Duration:</strong> Year-round program</p>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            Comprehensive preparation for biology competitions including USABO, BioLeague, and other prestigious contests.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-bold">SOLD OUT</span>
+                            <span class="text-accent font-medium">$25/class</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Research Mentorship -->
+                <div class="course-card bg-primary rounded-xl overflow-hidden shadow-lg border border-gray-800 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-microscope text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Research Mentorship</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2"><strong>Schedule:</strong> Saturdays 4:30 PM - 5:30 PM</p>
+                            <p class="text-sm text-gray-400 mb-2"><strong>Duration:</strong> Until April/May (progress dependent)</p>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            Hands-on guidance in AI research methodology, from hypothesis formation to publication-ready research papers.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-medium">$30/class</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- One-on-One Subject Tutoring -->
+                <div class="course-card bg-primary rounded-xl overflow-hidden shadow-lg border border-gray-800 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-user-graduate text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">One-on-One Subject Tutoring</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2"><strong>Schedule:</strong> Flexible - any day/time</p>
+                            <p class="text-sm text-gray-400 mb-2"><strong>Duration:</strong> Until student no longer needs support</p>
+                            <p class="text-sm text-gray-400 mb-2"><strong>Subjects:</strong> English, Chemistry, Biology, Computer Science</p>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            Private tutoring in your subject of choice with personalized attention. Limited spots - first come, first served.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-medium">$35/hour</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Math One-on-One -->
+                <div class="course-card bg-primary rounded-xl overflow-hidden shadow-lg border border-gray-800 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-square-root-alt text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Math (One-on-One)</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2"><strong>Schedule:</strong> Based on student availability</p>
+                            <p class="text-sm text-gray-400 mb-2"><strong>Duration:</strong> Scheduled by student</p>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            Comprehensive math instruction up to Calculus with basic AMC training, taught by experienced mathematician Sachit Hegde.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-medium">$35/class</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- USACO Course 01 -->
+                <div class="course-card bg-primary rounded-xl overflow-hidden shadow-lg border border-gray-800 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-code text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Competitive Programming - Course 1</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-400 mb-2"><strong>Schedule:</strong> 4:30-5:30 Sundays</p>
+                            <p class="text-sm text-gray-400 mb-2"><strong>Duration:</strong> Year-round in-depth</p>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            Comprehensive competitive programming course covering all programming levels. Comparable to USACO Bronze/Silver.
+                        </p>
+                        <div class="flex justify-between items-center">
+                        	<span class="text-accent font-medium">$25/class</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold mb-6">About <span class="text-accent">GenomeX</span></h2>
+                    <p class="text-gray-300 mb-6">
+                        GenomeX Tutoring was founded with the mission to help students achieve academic excellence 
+                        while developing skills that go beyond the classroom. Our tutors are highly qualified 
+                        individuals with competition experience and research backgrounds.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        We believe in a personalized approach to education, tailoring our programs to each student's 
+                        unique needs and goals. Whether you're aiming for competition success, looking to publish 
+                        research, or simply want to excel in your classes, we have the expertise to help you get there.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <span class="text-gray-300">Expert Tutors</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <span class="text-gray-300">Proven Results</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <span class="text-gray-300">Flexible Scheduling</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-accent mr-2"></i>
+                            <span class="text-gray-300">Personalized Approach</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-secondary rounded-xl p-8 border border-gray-800">
+                        <h3 class="text-xl font-bold mb-6 text-center">Our <span class="text-accent">Approach</span></h3>
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-4">
+                                    <div class="bg-accent/20 p-3 rounded-lg">
+                                        <i class="fas fa-bullseye text-accent"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2">Goal-Oriented</h4>
+                                    <p class="text-gray-300 text-sm">
+                                        We begin by understanding your specific goals and create a customized plan to achieve them.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-4">
+                                    <div class="bg-accent/20 p-3 rounded-lg">
+                                        <i class="fas fa-chart-line text-accent"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2">Progress Tracking</h4>
+                                    <p class="text-gray-300 text-sm">
+                                        Regular assessments ensure you're on track and allow us to adjust our approach as needed.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-4">
+                                    <div class="bg-accent/20 p-3 rounded-lg">
+                                        <i class="fas fa-lightbulb text-accent"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2">Concept Mastery</h4>
+                                    <p class="text-gray-300 text-sm">
+                                        We focus on deep understanding rather than rote memorization, building a strong foundation.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Information Section -->
+    <section class="py-20 bg-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Important <span class="text-accent">Information</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-300">
+                    Key details about our tutoring programs and policies.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-primary p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-dollar-sign text-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Competitive Pricing</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        We offer competitive prices compared to other tutoring institutions while maintaining the highest quality of instruction.
+                    </p>
+                </div>
+                
+                <div class="bg-primary p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-clock text-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Flexible Timing</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        Timings may change based on student availability to ensure maximum participation.
+                    </p>
+                </div>
+                
+                <div class="bg-primary p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-credit-card text-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Payment Policy</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        Payments are collected monthly based on attendance. If you're absent, you don't need to pay for that day.
+                    </p>
+                </div>
+                
+                <div class="bg-primary p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-users text-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Free Group Sessions</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        Additional group collaboration sessions where students can ask questions and get extra help - completely free.
+                    </p>
+                </div>
+                
+                <div class="bg-primary p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-envelope text-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Weekly Updates</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        Group class students receive weekly updates with covered material and resources. One-on-one students get personalized emails.
+                    </p>
+                </div>
+
+                <div class="bg-primary p-6 rounded-xl border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-trophy text-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">World-Class Expertise</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">
+                        Taught by qualified tutors with extensive academic achievements and active research experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-6">Get <span class="text-accent">Started</span></h2>
+                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Ready to take your academic journey to the next level? Contact us to schedule a free 
+                    consultation and learn how we can help you achieve your goals.
+                </p>
+                
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-8">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <i class="fas fa-envelope text-accent"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Email</h4>
+                            <p class="text-gray-300">knidam79@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <i class="fas fa-phone-alt text-accent"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Phone</h4>
+                            <p class="text-gray-300">(925) 487-9433</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvrj1LeMZti-mtda3Rq5vtLGu7LLZleWC_lrh9SlQwPkjSLA/viewform?usp=header" 
+                       class="bg-accent hover:bg-lightaccent text-primary px-8 py-4 rounded-md font-medium transition duration-300 text-lg" target="_blank">
+                        Sign Up Now!
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Elevate Tutoring. Empowering the next generation of biological innovators.</p>
-    </footer>
-
-    <!-- Course Details Page -->
-    <div id="coursePage" class="course-page" style="display: none;">
-        <div class="course-nav">
-            <div class="nav-container">
-                <div class="logo">
-                    <img src="logo.png" alt="GenomeX Logo">
-                    GenomeX Tutoring
+    <footer class="bg-secondary py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <span class="text-accent font-bold text-2xl">GenomeX</span>
+                    <p class="text-gray-300 mt-2">Win Competition. Publish Research. Excel in School.</p>
                 </div>
-                <div class="course-nav-right">
-                    <button onclick="showHomePage()" class="back-btn">← Back to Home</button>
-                    <button id="themeToggleCourse" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="course-hero">
-            <div class="course-hero-content">
-                <h1>Course Details & Enrollment</h1>
-                <p>Comprehensive information about our tutoring programs</p>
-            </div>
-        </div>
-
-        <div class="course-content">
-            <!-- Competitive Biology -->
-            <div class="course-detail-card fade-in">
-                <div class="course-header">
-                    <div class="course-icon">🏆</div>
-                    <div>
-                        <h2>Competitive Biology</h2>
-                        <div class="course-badge price">$25/class</div>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <div class="schedule-box">
-                        <h4>📅 Schedule</h4>
-                        <p><strong>Sundays:</strong> 4:30 PM - 6:30 PM</p>
-                        <p><em>Year-round, in-depth program</em></p>
-                    </div>
-                    <div class="course-description">
-                        <p>Comprehensive preparation for biology competitions including USABO, BioLeague, and other prestigious contests. This year-round program provides in-depth coverage of advanced biological concepts and competition strategies.</p>
-                    </div>
-                </div>
-                <div class="coming-soon">
-                    <span class="sold-out-badge">COURSE SOLD OUT</span>
-                </div>
-            </div>
-
-            <!-- Research Mentorship -->
-            <div class="course-detail-card fade-in">
-                <div class="course-header">
-                    <div class="course-icon">🔬</div>
-                    <div>
-                        <h2>Research Mentorship</h2>
-                        <div class="course-badge price">$25/class</div>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <div class="schedule-box">
-                        <h4>📅 Schedule</h4>
-                        <p><strong>Saturdays:</strong> 4:30 PM - 6:30 PM</p>
-                        <p><em>Program runs until April/May depending on student progress</em></p>
-                    </div>
-                    <div class="course-description">
-                        <p>Hands-on guidance in AI research methodology, from hypothesis formation to publication-ready research papers. Duration depends on how far students progress and individual help needed, but ends around April/May.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- One-on-One Tutoring -->
-            <div class="course-detail-card fade-in">
-                <div class="course-header">
-                    <div class="course-icon">📚</div>
-                    <div>
-                        <h2>One-on-One Subject Tutoring</h2>
-                        <div class="course-badge price">$25-35/class (depends on what student wants to cover)</div>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <div class="schedule-box">
-                        <h4>📅 Schedule</h4>
-                        <p><strong>Flexible:</strong> Any day/time based on student availability</p>
-                        <p><em>Limited spots - First come, first served</em></p>
-                        <p><em>Continues until student no longer needs support</em></p>
-                    </div>
-                    <div class="course-description">
-                        <p>Private tutoring in your subject of choice with personalized attention. Subjects include any level of English, Honors Chemistry, any level of Biology, and any Computer Science.</p>
-                        <ul class="course-features">
-                            <li>Help with tests and quizzes</li>
-                            <li>Homework assistance</li>
-                            <li>Personalized study plans</li>
-                            <li>Individual progress tracking</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <span class="soon-badge">Comprehensive USACO Course Coming Soon!</span>
-            <!-- Calculus Course -->
-            <div class="course-detail-card fade-in">
-                <div class="course-header">
-                    <div class="course-icon">📐</div>
-                    <div>
-                        <h2>Math (one-on-one)</h2>
-                        <div class="course-badge price">$35/class</div>
-                    </div>
-                </div>
-                <div class="course-info">
-                    <div class="schedule-box">
-                        <h4>📅 Schedule</h4>
-                        <p><strong>Days & Times:</strong> To be scheduled based on student availability</p>
-                        <p><strong>Duration:</strong> 1 hour per class</p>
-                        <p><strong>Instructor:</strong> Sachit Hegde</p>
-                        <p><em>Experienced math tutor with expertise in math</em></p>
-                    </div>
-                    <div class="course-description">
-                        <p>Comprehensive math instruction covering anything up to Calculus, and includes basic AMC training. Taught by Sachit Hegde, an experienced mathematics tutor.</p>
-                        <ul class="course-features">
-                            <li>Anything and everything up to Calculus</li>
-                            <li>Basic AMC training</li>
-                            <li>Critical Thinking</li>
-                            <li>Problem-solving strategies</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Important Information -->
-            <div class="important-info fade-in">
-                <h2>Important Information</h2>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <h4>💰 Competitive Pricing</h4>
-                        <p>I offer competitive prices compared to other tutoring institutions while maintaining the highest quality of instruction.</p>
-                    </div>
-                    <div class="info-item">
-                        <h4>🕒 Flexible Timing</h4>
-                        <p>Please keep in mind that timings may change based on student availability to ensure maximum participation.</p>
-                    </div>
-                    <div class="info-item">
-                        <h4>💳 Payment Policy</h4>
-                        <p>Payments are collected monthly based on attendance, which I track carefully. If you're absent, you don't need to pay for that day.</p>
-                    </div>
-                    <div class="info-item">
-                        <h4>👥 Free Group Sessions</h4>
-                        <p>I host additional group collaboration sessions where students can ask questions and get extra help - completely free based on availability and student need.</p>
-                    </div>
-                    <div class="info-item">
-                        <h4>📝 Weekly Updates</h4>
-                        <p>Group class students receive weekly updates with covered material and resources. One-on-one students get personalized emails with class summaries and additional resources.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sign Up Section -->
-            <div class="signup-section fade-in">
-                <h2>Ready to Elevate Your Learning?</h2>
-                <p>Join our community of high-achieving students and start your journey to academic excellence.</p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvrj1LeMZti-mtda3Rq5vtLGu7LLZleWC_lrh9SlQwPkjSLA/viewform?usp=header" target="_blank" class="signup-btn">Sign Up Now!</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Theme toggle functionality
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            const themeToggleCourse = document.getElementById('themeToggleCourse');
-            
-            body.classList.toggle('dark-mode');
-            
-            // Update button icons
-            if (body.classList.contains('dark-mode')) {
-                if (themeToggle) themeToggle.textContent = '☀️';
-                if (themeToggleCourse) themeToggleCourse.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                if (themeToggle) themeToggle.textContent = '🌙';
-                if (themeToggleCourse) themeToggleCourse.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        // Load saved theme on page load
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeToggle = document.getElementById('themeToggle');
-            const themeToggleCourse = document.getElementById('themeToggleCourse');
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                if (themeToggle) themeToggle.textContent = '☀️';
-                if (themeToggleCourse) themeToggleCourse.textContent = '☀️';
-            }
-        }
-
-        // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', loadTheme);
-
-        // Cursor tracking for hover effects
-        function addCursorTracking() {
-            const cards = document.querySelectorAll('.service-card, .course-detail-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    
-                    card.style.setProperty('--x', `${x}%`);
-                    card.style.setProperty('--y', `${y}%`);
-                });
                 
-                card.addEventListener('mouseleave', () => {
-                    card.style.setProperty('--x', '50%');
-                    card.style.setProperty('--y', '50%');
-                });
-            });
-        }
-
-        // Initialize cursor tracking
-        document.addEventListener('DOMContentLoaded', addCursorTracking);
-
-        // Page navigation functions
-        function showCoursePage() {
-            document.getElementById('coursePage').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            
-            // Re-trigger fade-in animations for course page
-            setTimeout(() => {
-                document.querySelectorAll('#coursePage .fade-in').forEach(el => {
-                    el.classList.add('visible');
-                });
-                // Re-initialize cursor tracking for course page cards
-                addCursorTracking();
-            }, 100);
-        }
-
-        function showHomePage() {
-            document.getElementById('coursePage').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Form submission handler
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Simple validation
-            if (!data.name || !data.email || !data.service) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // Simulate form submission
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Thank you for your interest! I will contact you within 24 hours to schedule your consultation.');
-                this.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
-        });
-
-        // Navigation background change on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                nav.style.boxShadow = 'none';
-            }
-        });
-
-        // Add subtle parallax effect to hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            const rate = scrolled * -0.5;
-            
-            if (hero) {
-                hero.style.transform = `translateY(${rate}px)`;
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-accent transition duration-300">
